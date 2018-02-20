@@ -5,8 +5,19 @@ console.log("App.js is running");
 //JSX
 var app = {
   title: '1st React app',
-  subtitle: 'subtitle'
+  subtitle: 'subtitle',
+  options: ['One', 'Two']
 };
+
+function getSubtitle(subtitle) {
+  if (subtitle) {
+    return React.createElement(
+      'p',
+      null,
+      subtitle
+    );
+  }
+}
 
 var template = React.createElement(
   'div',
@@ -16,10 +27,15 @@ var template = React.createElement(
     null,
     app.title
   ),
-  React.createElement(
+  getSubtitle(app.subtitle),
+  app.options.length > 0 ? React.createElement(
     'p',
     null,
-    app.subtitle
+    app.options
+  ) : React.createElement(
+    'h3',
+    null,
+    'No options'
   )
 );
 
