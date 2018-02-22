@@ -1,12 +1,13 @@
 'use strict';
 
 console.log("App.js is running");
+var appRoot = document.getElementById('app');
 
 //JSX
 var app = {
   title: '1st React app',
   subtitle: 'subtitle',
-  options: ['One', 'Two']
+  options: []
 };
 
 function getSubtitle(subtitle) {
@@ -19,47 +20,62 @@ function getSubtitle(subtitle) {
   }
 }
 
-var template = React.createElement(
-  'div',
-  null,
-  React.createElement(
-    'h1',
-    null,
-    app.title
-  ),
-  getSubtitle(app.subtitle),
-  app.options.length > 0 ? React.createElement(
-    'p',
-    null,
-    app.options
-  ) : React.createElement(
-    'h3',
-    null,
-    'No options'
-  )
-);
+var onFormSubmit = function onFormSubmit(e) {
+  e.preventDefault();
 
-var userName = 'Michael';
-var templateTwo = React.createElement(
-  'div',
-  null,
-  React.createElement(
-    'h1',
-    null,
-    userName
-  ),
-  React.createElement(
-    'p',
-    null,
-    'Age: 99'
-  ),
-  React.createElement(
-    'p',
-    null,
-    'Location : Poland'
-  )
-);
+  var option = e.target.elements.inputs.value;
 
-var appRoot = document.getElementById('app');
+  if (option) {
+    app.options.push(option);
+    e.target.elements.inputs.value = '';
+    renderTemplate();
+  }
+};
 
-ReactDOM.render(template, appRoot);
+var clearOptions = function clearOptions() {
+
+  if (app.options.length >= 1) {
+    app.options = [];
+    renderTemplate();
+  }
+};
+
+var renderTemplate = function renderTemplate() {
+  var template = React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'h1',
+      null,
+      app.title
+    ),
+    getSubtitle(app.subtitle),
+    app.options.length > 0 ? React.createElement(
+      'p',
+      null,
+      app.options.length
+    ) : React.createElement(
+      'h3',
+      null,
+      'No options'
+    ),
+    React.createElement(
+      'form',
+      { onSubmit: onFormSubmit },
+      React.createElement('input', { type: 'text', name: 'inputs', required: true }),
+      React.createElement(
+        'button',
+        null,
+        ' Add option'
+      )
+    ),
+    React.createElement(
+      'button',
+      { onClick: clearOptions },
+      'Wipe array'
+    )
+  );
+  ReactDOM.render(template, appRoot);
+};
+
+renderTemplate();
