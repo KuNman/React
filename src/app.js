@@ -1,7 +1,7 @@
 console.log("App.js is running");
 
 //JSX
-var app = {
+const app = {
     title: '1st React app',
     subtitle: 'subtitle',
     options: ['One', 'Two']
@@ -13,7 +13,7 @@ function getSubtitle(subtitle) {
   }
 }
 
-var template = (
+const template = (
   <div>
     <h1>{app.title}</h1>
     {getSubtitle(app.subtitle)}
@@ -21,8 +21,8 @@ var template = (
   </div>
 );
 
-var userName = 'Michael';
-var templateTwo = (
+const userName = 'Michael';
+const templateTwo = (
   <div>
     <h1>{userName}</h1>
     <p>Age: 99</p>
@@ -30,6 +30,6 @@ var templateTwo = (
   </div>
 );
 
-var appRoot = document.getElementById('app');
+const appRoot = document.getElementById('app');
 
 ReactDOM.render(template, appRoot);
