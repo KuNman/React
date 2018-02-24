@@ -40,6 +40,10 @@ const renderTemplate = () => {
       <h1>{app.title}</h1>
       {getSubtitle(app.subtitle)}
       {app.options.length > 0 ? <p>{app.options.length}</p> : <h3>No options</h3>}
+      { app.options.map((option) => {
+         return <li key={option}>Option: {option}</li>;
+        })
+      }
       <form onSubmit={onFormSubmit}>
         <input type="text" name="inputs" required/>
         <button> Add option</button>
